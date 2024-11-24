@@ -64,19 +64,19 @@ struct Object
 	GLuint VAO; //Índice do buffer de geometria
 	int nVertices; //nro de vértices
 	glm::mat4 model; //matriz de transformações do objeto
-    bool rotateX = false;
-    bool rotateY = false;
-    bool rotateZ = false;
-    float angle = 0.0f;
-    float escala = 1.0f;
+    	bool rotateX = false;
+    	bool rotateY = false;
+    	bool rotateZ = false;
+    	float angle = 0.0f;
+    	float escala = 1.0f;
 	glm::vec3 movimento;
 
-    float ka, kd, ks; //coeficientes de iluminação - material do objeto
-    GLuint texID; //Identificador da textura carregada
+    	float ka, kd, ks; //coeficientes de iluminação - material do objeto
+    	GLuint texID; //Identificador da textura carregada
 
-    bool segueCurva = false;
-    int tipoCurva = -1;     // qual tipo de curva o obj esta fazendo
-    int posicaoCurva = 0;   // index de posicao do obj na curva
+   	bool segueCurva = false; // se o objeto esta seguindo uma curva
+    	int tipoCurva = -1;     // qual tipo de curva o obj esta fazendo
+    	int posicaoCurva = 0;   // index de posicao do obj na curva
 };
 std::vector<Object> objects;
 
