@@ -1,14 +1,7 @@
 // Trabalho GrauA CG2024-2
 // Nome: Rodrigo Fuelber Franke
 
-/* Hello Triangle - código adaptado de https://learnopengl.com/#!Getting-started/Hello-Triangle
- *
- * Adaptado por Rossana Baptista Queiroz
- * para as disciplinas de Processamento Gráfico/Computação Gráfica - Unisinos
- * Versão inicial: 7/4/2017
- * Última atualização em 12/08/2024
- *
- */
+// Código adaptado de https://github.com/fellowsheep/CG2024-2
 
 #include <iostream>
 #include <string>
