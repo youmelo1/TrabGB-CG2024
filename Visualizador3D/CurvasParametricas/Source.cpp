@@ -174,13 +174,15 @@ int main()
     curvaCatmullRom.controlPoints.push_back(curvaBezier.controlPoints[curvaBezier.controlPoints.size() - 1]);
 
 
-    // pontos de controle hermite
-    curvaHermite.controlPoints.push_back(glm::vec3(-3.0f, -1.0f, 0.0f));
-    curvaHermite.controlPoints.push_back(glm::vec3(3.0f, 2.0f, 0.0f));
-    curvaHermite.controlPoints.push_back(glm::vec3(2.0f, 3.0f, 0.0f)); 
-    curvaHermite.controlPoints.push_back(glm::vec3(-1.0f, -2.0f, 0.0f));
+    
+    // pontos hermite
+    curvaHermite.controlPoints.push_back(glm::vec3(-2.0f, 0.0f, 0.0f));
 
+    curvaHermite.controlPoints.push_back(glm::vec3(2.0f, 0.0f, 0.0f));
 
+    curvaHermite.controlPoints.push_back(glm::vec3(0.0f, 3.0f, 0.0f));
+
+    curvaHermite.controlPoints.push_back(glm::vec3(0.0f, -3.0f, 0.0f));
 
 
 
@@ -785,10 +787,10 @@ void generateHermiteCurvePoints(Curve &curve, int numPoints)
             glm::vec4 T(t * t * t, t * t, t, 1);
 
 
-            glm::vec3 P0 = curve.controlPoints[i];
-            glm::vec3 P1 = curve.controlPoints[i + 3];
-            glm::vec3 T0 = curve.controlPoints[i + 1] - P0; 
-            glm::vec3 T1 = curve.controlPoints[i + 2] - P1; 
+            glm::vec3 P0 = curve.controlPoints[i];      // Ponto inicial
+            glm::vec3 P1 = curve.controlPoints[i + 1];  // Ponto final
+            glm::vec3 T0 = curve.controlPoints[i + 2];  // Tangente inicial
+            glm::vec3 T1 = curve.controlPoints[i + 3];  // Tangente final
 
             glm::mat4x3 G(P0, P1, T0, T1);
 
