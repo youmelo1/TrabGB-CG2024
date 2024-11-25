@@ -185,14 +185,14 @@ int main()
 
 
     // Gerar pontos da curva de Bézier
-    int numCurvePoints = 15; // Quantidade de pontos por segmento na curva
+    int numCurvePoints = 20; // Quantidade de pontos por segmento na curva
     generateGlobalBezierCurvePoints(curvaBezier, numCurvePoints);
     generateBezierCurvePoints(curvaBezier, numCurvePoints);
     generateCatmullRomCurvePoints(curvaCatmullRom, numCurvePoints);
 
 
 
-    generateHermiteCurvePoints(curvaHermite, numCurvePoints*14);
+    generateHermiteCurvePoints(curvaHermite, numCurvePoints*10);
 
 
 
@@ -252,11 +252,11 @@ int main()
         float dt = now - lastTime;
         if (dt >= 1 / FPS) {
             for (Object& objeto : objects) {
-                // Verifica se o objeto segue alguma curva
+                // verifica se o objeto segue alguma curva
                 if (objeto.segueCurva && objeto.tipoCurva != -1) {
                     Curve* curvaAtual = nullptr;
 
-                    // Determina qual tipo de curva o objeto vai fazer
+                    // determina qual tipo de curva o objeto vai fazer
                     if (objeto.tipoCurva == 0) {
                         curvaAtual = &curvaCatmullRom;
                     } else if (objeto.tipoCurva == 1) {
@@ -770,15 +770,11 @@ void generateHermiteCurvePoints(Curve &curve, int numPoints)
 
     initializeHermiteMatrix(curve.M);
 
-    float piece = 1.0 / (float)numPoints; // Intervalo entre os pontos
+    float piece = 1.0 / (float)numPoints; 
     float t;
 
-    for (int i = 0; i < curve.controlPoints.size(); i += 4)
+    for (int i = 0; i < curve.controlPoints.size() - 3; i += 3)
     {
-        glm::vec3 P0 = curve.controlPoints[i];
-        glm::vec3 P1 = curve.controlPoints[i + 3];
-        glm::vec3 P2 = curve.controlPoints[i + 1] - P0; 
-        glm::vec3 P3 = curve.controlPoints[i + 2] - P1; 
 
         // Gera pontos para o segmento atual
         for (int j = 0; j <= numPoints; j++)
@@ -788,13 +784,17 @@ void generateHermiteCurvePoints(Curve &curve, int numPoints)
             // Vetor t para Hermite
             glm::vec4 T(t * t * t, t * t, t, 1);
 
-            // Matriz G contendo os pontos e tangentes
-            glm::mat4x3 G(P0, P1, P2, P3);
 
-            // Calcula o ponto da curva
+            glm::vec3 P0 = curve.controlPoints[i];
+            glm::vec3 P1 = curve.controlPoints[i + 3];
+            glm::vec3 T0 = curve.controlPoints[i + 1] - P0; 
+            glm::vec3 T1 = curve.controlPoints[i + 2] - P1; 
+
+            glm::mat4x3 G(P0, P1, T0, T1);
+
+            // Calcula o ponto da curva multiplicando tVector, a matriz de Hermite e os pontos de controle
             glm::vec3 point = G * curve.M * T;
 
-            // Adiciona o ponto gerado à curva
             curve.curvePoints.push_back(point);
         }
     }
